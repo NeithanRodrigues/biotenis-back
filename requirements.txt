@@ -5,3 +5,4 @@ asyncpg
 aerich
 passlib[bcrypt]
 python-jose[cryptography]
+pydantic[email]

@@ -8,7 +8,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
-async def hash_passoword(passoword: str) -> str:
+async def hash_password(passoword: str) -> str:
     return pwd_context.hash(passoword)
 
 async def verify_password(user_password: str, hashed_password: str) -> bool:
@@ -16,7 +16,7 @@ async def verify_password(user_password: str, hashed_password: str) -> bool:
 
 async def create_access_token(data: dict) -> str:
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.now(datetime.timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
