@@ -1,15 +1,14 @@
 import os
-from typing import Annotated
 from fastapi import FastAPI
 from app.core.database import init_db
-from fastapi import Depends
-from fastapi.security import OAuth2PasswordBearer
-from app.routes import auth
+from app.routes import auth, court, user
 
 app = FastAPI()
 init_db(app)
 
 app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(court.router)
 
 
 @app.get("/")

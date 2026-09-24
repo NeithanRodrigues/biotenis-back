@@ -16,7 +16,7 @@ class UserIn(BaseModel):
     athlete_class: Optional[AthleteClass] = None
 
     @model_validator(mode="after")
-    async def block_admin_register(user):
+    def block_admin_register(user):
         if user.role == UserEnum.ADMIN:
             raise ValueError("Não é permitido se registrar como administrador.")
         return user
@@ -28,6 +28,17 @@ class UserOut(BaseModel):
     email: EmailStr
     phone: str
     cpf: str
+    birth_date: date
+    athlete_class: Optional[AthleteClass] = None
+    is_active: bool
+
+    class Config:
+        from_attributes = True
+
+class UsertOutForTeacher(BaseModel):
+    id: int
+    name: str
+    phone: str
     birth_date: date
     athlete_class: Optional[AthleteClass] = None
     is_active: bool
